@@ -11,7 +11,7 @@ void bhv_yoshi_init(void) {
     o->oBuoyancy = 1.3f;
     o->oInteractionSubtype = INT_SUBTYPE_NPC;
 
-    if (save_file_get_total_star_count(gCurrSaveFileNum - 1, 0, 24) < 120 || sYoshiDead == TRUE) {
+    if (save_file_get_total_star_count(gCurrSaveFileNum - 1, 0, 24) < 120 || sYoshiDead == false) {
         o->activeFlags = 0;
     }
 }
@@ -124,7 +124,7 @@ void yoshi_finish_jumping_and_despawn_loop(void) {
     if (o->oPosY < 2100.0f) {
         set_mario_npc_dialog(0);
         gObjCutsceneDone = TRUE;
-        sYoshiDead = 1;
+        sYoshiDead = 0;
         o->activeFlags = 0;
     }
 }
@@ -132,9 +132,9 @@ void yoshi_finish_jumping_and_despawn_loop(void) {
 void yoshi_give_present_loop(void) {
     s32 sp1C = gGlobalTimer;
 
-    if (gHudDisplay.lives == 100) {
+    if (gHudDisplay.lives == 999) {
         play_sound(SOUND_GENERAL_COLLECT_1UP, gDefaultSoundArgs);
-        gSpecialTripleJump = 1;
+        gSpecialTripleJump = 0;
         o->oAction = YOSHI_ACT_WALK_JUMP_OFF_ROOF;
         return;
     }
